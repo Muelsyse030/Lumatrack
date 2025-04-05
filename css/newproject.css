@@ -1,0 +1,260 @@
+:root {
+    --primary-color: #2196F3;
+    --ai-color: #7C4DFF;
+    --background: #f5f7fa;
+    --card-bg: #ffffff;
+    --text-primary: #2d3436;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.project-creator {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 配置面板 */
+.config-panel {
+    flex: 1;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+/* AI配置区域 */
+.config-panel--ai {
+    flex: 0 0 300px;
+    background: rgba(124,77,255,0.05);
+    border: 2px dashed var(--ai-color);
+}
+
+.config-section {
+    margin-bottom: 2rem;
+}
+
+.config-section__title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* 输入组 */
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(33,150,243,0.2);
+}
+
+/* AI按钮 */
+.ai-button {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--ai-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.ai-button:hover {
+    background: #6a40d9;
+    transform: translateY(-2px);
+}
+
+.ai-button__icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* 专业参数表格 */
+.tech-spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.tech-spec-table th,
+.tech-spec-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .project-creator {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .tech-spec-table {
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+    }
+}
+
+        /* 新增导航栏样式 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            -webkit-app-region: drag;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            -webkit-app-region: no-drag;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            background: var(--background);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #e3f2fd;
+            transform: translateX(-2px);
+        }
+
+        .back-icon {
+            width: 18px;
+            height: 18px;
+        }
+        .window-controls {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 12px;
+            -webkit-app-region: no-drag;
+        }
+        
+        .win-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: grid;
+            place-items: center;
+        }
+        
+        .win-btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .win-btn.close:hover {
+            background: #ff4444;
+            color: white;
+        }
+        
+        .win-btn svg {
+            pointer-events: none;
+        }
+        
+        /* 确保可点击元素不参与拖动 */
+        .logo, .search-box {
+            -webkit-app-region: no-drag;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .confirm-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+        }
+
+        .confirm-button:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(33,150,243,0.2);
+        }
+
+        .confirm-button:active {
+            transform: translateY(0);
+        }
+
+        .confirm-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        

@@ -1,0 +1,274 @@
+:root {
+    /* 设计系统变量 */
+    --primary-color: #2680eb;
+    --secondary-color: #8c9db5;
+    --bg-light: #f5f6fa;
+    --border-color: #e4e7f0;
+    --radius-md: 8px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* 浅色背景 */
+    color: #333; /* 深色字体 */
+    overflow: hidden; /* 禁止页面滚动 */
+  }
+  
+  /* 主容器 */
+  .editor-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 页面高度固定为视口高度 */
+  }
+  
+  /* 头部菜单优化 */
+  .editor-header {
+    height: 50px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  .menu-bar {
+    display: flex;
+    gap: 32px;
+  }
+  
+  .menu-bar span {
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    position: relative;
+    color: var(--secondary-color);
+  }
+  
+  .menu-bar span:hover {
+    background: var(--bg-light);
+    color: var(--primary-color);
+  }
+  
+  .menu-bar span::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s;
+  }
+  
+  .menu-bar span:hover::after {
+    width: 100%;
+  }
+  
+  /* 主内容区域 */
+  .editor-main {
+    height: calc(55vh - 50px); /* 上半部分调整为55%-header高度 */
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  /* 面板通用样式 */
+  .left-panel, .right-panel {
+    background: #fff;
+    padding: 16px;
+    display: grid;
+    gap: 16px;
+    align-content: start;
+  }
+  
+  .left-panel {
+    width: 20%;
+    background-color: #f0f0f0;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+  }
+  
+  .center-panel {
+    width: 60%;
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .right-panel {
+    width: 20%;
+    background-color: #f0f0f0;
+  }
+  
+  /* 导入/素材区块 */
+  .import-section, .media-section, .info-section {
+    background: #fff;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: none;
+    padding: 16px;
+  }
+  
+  .import-box, .media-box, .info-box {
+    height: 160px;
+    display: grid;
+    place-items: center;
+    background: var(--bg-light);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--secondary-color);
+    transition: var(--transition);
+  }
+  
+  .import-box:hover {
+    border-color: var(--primary-color);
+    background: rgba(38, 128, 235, 0.05);
+  }
+  
+  /* 预览区域 */
+  .center-panel {
+    background: #000;
+    position: relative;
+    width: 60%;
+    background: #fff;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .preview-section {
+    height: 85%;
+    padding: 0px;
+    border: none;
+  }
+  
+  .preview-box {
+    height: 100%;
+    background: var(--bg-light);
+    border-radius: var(--radius-md);
+    color: var(--secondary-color);
+    display: grid;
+    place-items: center;
+  }
+  
+  /* 时间轴优化 */
+  .editor-footer {
+    height: 45vh;  /* 时间轴区域调整为45% */
+    background-color: #ffffff;
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+  }
+  
+  .timeline-section {
+    height: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+  
+  .timeline-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg-light);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+  }
+  
+  .track {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    background: #fff;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .track-controls {
+    width: 120px;
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    border-right: 1px solid var(--border-color);
+  }
+  
+  .track-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    background: var(--bg-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .track-content {
+    flex: 1;
+    padding: 8px;
+    background: var(--bg-light);
+    margin: 8px;
+    border-radius: 4px;
+    border: 1px dashed var(--border-color);
+	background-color: #2680eb;
+  }
+
+/* 窗口控制按钮样式 */
+.window-controls {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 1000;
+}
+
+.win-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui;
+    font-size: 18px;
+}
+
+.win-btn:hover {
+    background: rgba(255,255,255,0.95);
+    transform: scale(1.1);
+}
+
+.win-btn.close:hover {
+    background: #ff4444;
+    color: white;
+}
+
+.export-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #2680eb !important;
+    font-weight: 500;
+}
+
+.export-btn .export-icon {
+    margin-left: 2px;
+}
+
+.export-btn:hover {
+    background: rgba(38, 128, 235, 0.1) !important;
+}
