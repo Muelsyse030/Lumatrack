@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/top.css">
+    <link rel="stylesheet" href="css/login.css">
+    <title>灵轨</title>
+    <style>
+        /* 新增窗口控制样式 */
+        .nav-container {
+            position: relative;
+            padding-right: 140px; /* 给控制按钮留空间 */
+        }
+
+        .window-controls {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+            -webkit-app-region: no-drag;
+        }
+
+        .win-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.8);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui;
+            font-size: 18px;
+        }
+
+        .win-btn:hover {
+            background: rgba(255,255,255,0.95);
+            transform: scale(1.1);
+        }
+
+        .win-btn.close:hover {
+            background: #ff4444;
+            color: white;
+        }
+
+        /* 拖动区域设置 */
+        .navbar {
+            -webkit-app-region: drag;
+        }
+
+        .navbar * {
+            -webkit-app-region: no-drag;
+        }
+    </style>
+</head>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+	  document.querySelector('.minimize').addEventListener('click', () => {
+		window.electronAPI.minimize();
+	  });
+  
+	  document.querySelector('.maximize').addEventListener('click', () => {
+		window.electronAPI.maximize();
+	  });
+  
+	  document.querySelector('.close').addEventListener('click', () => {
+		window.electronAPI.close();
+	  });
+	});
+  </script>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">灵轨</a>
+            
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active">首页</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">产品</a>
+                    <div class="dropdown-content">
+                        <a href="#" class="dropdown-item">产品特性</a>
+                        <a href="#" class="dropdown-item">价格方案</a>
+                        <a href="#" class="dropdown-item">使用文档</a>
+                    </div>
+                </li>
+                <li><a href="#" class="nav-link">关于我们</a></li>
+                <li><a href="#" class="nav-link">下载</a></li>
+            </ul>
+            
+           
+            <div class="window-controls">
+				<button class="win-btn minimize">
+					<svg width="12" height="12" viewBox="0 0 12 12">
+						<rect width="10" height="1" x="1" y="6"/>
+					</svg>
+				</button>
+				<button class="win-btn maximize">
+					<svg width="12" height="12" viewBox="0 0 12 12">
+						<path class="maximize-svg" d="M1 1v10h10V1H1zm9 9H2V2h8v8z"/>
+					</svg>
+				</button>
+				<button class="win-btn close">
+					<svg width="12" height="12" viewBox="0 0 12 12">
+						<path d="M11 1L1 11m10 0L1 1" stroke="currentColor" fill="none"/>
+					</svg>
+				</button>
+			</div>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="a">
+        <div class="b"></div>
+        <div class="c">
+            <div class="d">
+                <h1>Login/Register</h1>
+                <input type="text" class="e" placeholder="用户名">
+                <input type="text" class="e" placeholder="手机号/邮箱">
+                <input type="password" class="e" placeholder="密码">
+                <a href="#/forgot-password" class="f">忘记密码</a>
+                <a href="#" class="g" id="loginLink">登录</a>
+                <script>
+                    document.getElementById('loginLink').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        window.electronAPI.openProject();
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

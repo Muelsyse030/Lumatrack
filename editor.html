@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑器</title>
+    <link rel="stylesheet" href="css/editor.css">
+    <style>
+        /* 新增窗口控制样式 */
+        .editor-header {
+            -webkit-app-region: drag;
+            position: relative;
+        }
+
+        .editor-header * {
+            -webkit-app-region: no-drag;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <header class="editor-header">
+            <div class="menu-bar">
+                <span>导入</span>
+                <span>素材</span>
+                <span>我的</span>
+                <span>AI生成</span>
+                <span>云素材</span>
+                <span>官方活动</span>
+                <span class="export-btn" id="exportBtn">
+                    导出
+                    <svg class="export-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                    </svg>
+                </span>
+            </div>
+            <div class="window-controls">
+                <button class="win-btn minimize">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <rect width="10" height="1" x="1" y="6"/>
+                    </svg>
+                </button>
+                <button class="win-btn maximize">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <path class="maximize-svg" d="M1 1v10h10V1H1zm9 9H2V2h8v8z"/>
+                    </svg>
+                </button>
+                <button class="win-btn close">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M11 1L1 11m10 0L1 1" stroke="currentColor" fill="none"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+        <main class="editor-main">
+            <div class="left-panel">
+                <div class="import-section">
+                    <p>导入</p>
+                    <div class="import-box">视频、音频、图片、文档 拖拽上传</div>
+                </div>
+                <div class="media-section">
+                    <p>素材</p>
+                    <div class="media-box">显示素材列表</div>
+                </div>
+            </div>
+            <div class="center-panel">
+                <div class="preview-section">
+                    <p>播放器</p>
+                    <div class="preview-box">视频预览区域</div>
+                </div>
+            </div>
+            <div class="right-panel">
+                <div class="info-section">
+                    <p>草稿参数</p>
+                    <div class="info-box">显示草稿参数信息</div>
+                </div>
+            </div>
+        </main>
+        <footer class="editor-footer">
+            <div class="timeline-section">
+                <p>时间轴</p>
+                <div class="timeline-box">
+                    <div class="track video-track">
+                        <div class="track-controls">
+                            <button class="track-btn"><svg>...</svg></button>
+                            <button class="track-btn"><svg>...</svg></button>
+                            <button class="track-btn"><svg>...</svg></button>
+                        </div>
+                        <div class="track-content">视频轨道内容</div>
+                    </div>
+                    <div class="track audio-track">
+                        <div class="track-controls">
+                            <button class="track-btn"><svg>...</svg></button>
+                            <button class="track-btn"><svg>...</svg></button>
+                            <button class="track-btn"><svg>...</svg></button>
+                        </div>
+                        <div class="track-content">音频轨道内容</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.minimize').addEventListener('click', () => {
+                window.electronAPI.minimize();
+            });
+            
+            document.querySelector('.maximize').addEventListener('click', () => {
+                window.electronAPI.maximize();
+            });
+            
+            document.querySelector('.close').addEventListener('click', () => {
+                window.electronAPI.close();
+            });
+
+            document.getElementById('exportBtn').addEventListener('click', () => {
+                window.electronAPI.openExport();
+            });
+        });
+    </script>
+</body>
+</html>

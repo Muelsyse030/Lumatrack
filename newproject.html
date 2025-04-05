@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新建项目 - 灵轨</title>
+	<link rel="stylesheet" href="css/newproject.css">
+	
+</head>
+<body>
+    <!-- 新增导航栏 -->
+    <nav class="navbar">
+        <div class="nav-controls">
+            <button class="back-button" id="backButton">
+                <svg class="back-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                返回
+            </button>
+            <div class="window-controls">
+                <button class="win-btn minimize">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <rect width="10" height="1" x="1" y="6"/>
+                    </svg>
+                </button>
+                <button class="win-btn maximize">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <path class="maximize-svg" d="M1 1v10h10V1H1zm9 9H2V2h8v8z"/>
+                    </svg>
+                </button>
+                <button class="win-btn close">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M11 1L1 11m10 0L1 1" stroke="currentColor" fill="none"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="project-creator">
+        <!-- 原有内容保持不变 -->
+    </div>
+
+    <script>
+        // 返回按钮功能
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.history.back(); // 或指定跳转 window.location.href = 'index.html'
+        });
+
+        // 窗口控制功能
+    document.querySelector('.minimize').addEventListener('click', () => {
+    window.electronAPI.minimize()  // 
+})
+
+document.querySelector('.maximize').addEventListener('click', () => {
+    window.electronAPI.maximize()  // 
+})
+
+document.querySelector('.close').addEventListener('click', () => {
+    window.electronAPI.close()  // 
+})
+    
+    // 窗口状态同步
+    window.electronAPI.onMaximizeState((_, isMaximized) => {
+        const svg = document.querySelector('.maximize-svg')
+        svg.setAttribute('d', isMaximized ? 
+            'M2 2h8v8H2V2zm1 1v6h6V3H3z' : 
+            'M1 1v10h10V1H1zm9 9H2V2h8v8z'
+        )
+    })
+    </script>
+    <div class="project-creator">
+        <!-- 常规配置 -->
+        <div class="config-panel">
+            <div class="config-section">
+                <h2 class="config-section__title">项目基础设置</h2>
+                
+                <div class="input-group">
+                    <label class="input-group__label">项目名称</label>
+                    <input type="text" class="input-field" placeholder="请输入项目名称">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-group__label">分辨率设置</label>
+                    <select class="input-field">
+                        <option>3840x2160 (4K UHD)</option>
+                        <option>1920x1080 (Full HD)</option>
+                        <option>1280x720 (HD)</option>
+                        <option>自定义分辨率</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-group__label">帧率 (FPS)</label>
+                    <input type="number" class="input-field" value="24" min="1" max="120">
+                </div>
+            </div>
+
+            <div class="config-section">
+                <h2 class="config-section__title">高级技术参数</h2>
+                
+                <table class="tech-spec-table">
+                    <tr>
+                        <th>色彩空间</th>
+                        <td>
+                            <select class="input-field">
+                                <option>Rec.709</option>
+                                <option>DCI-P3</option>
+                                <option>Rec.2020</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>编解码器</th>
+                        <td>
+                            <select class="input-field">
+                                <option>H.264</option>
+                                <option>ProRes 422</option>
+                                <option>DNxHR</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>音频采样率</th>
+                        <td>
+                            <select class="input-field">
+                                <option>48 kHz</option>
+                                <option>96 kHz</option>
+                                <option>192 kHz</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="action-buttons">
+                <button class="confirm-button" id="createProjectBtn">
+                    <span>创建项目</span>
+                    <svg class="confirm-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </button>
+                <script>
+                    document.getElementById('createProjectBtn').addEventListener('click', () => {
+                        window.electronAPI.openEditor();
+                    });
+                </script>
+            </div>
+        </div>
+        <!-- AI配置区域 -->
+        <div class="config-panel config-panel--ai">
+            <div class="config-section">
+                <h2 class="config-section__title">AI智能配置</h2>
+                
+                <button class="ai-button">
+                    <svg class="ai-button__icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 11h-3.94a.78.78 0 0 0-.21 0h-.17a1.3 1.3 0 0 0-.15.1 1.67 1.67 0 0 0-.16.12 1 1 0 0 0-.09.13 1.32 1.32 0 0 0-.12.2 1 1 0 0 0 0 .6 1 1 0 0 0 .08.18l3 5a1 1 0 0 0 1.42.13 1 1 0 0 0 .13-1.42l-1.84-3.06H21a1 1 0 0 0 0-2zm-8-9a1 1 0 0 0-1 1v2a1 1 0 0 0 2 0V3a1 1 0 0 0-1-1zm-7.8.8a1 1 0 0 0-1.4 1.4l1.5 1.5a1 1 0 0 0 1.4-1.4zM4 11a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm2.19 1.51a1 1 0 0 0-1.39 1.47l1.4 1.4a1 1 0 0 0 1.41-1.41zM13 19a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1zm4.29-1.71a1 1 0 0 0 1.41 1.41l1.5 1.5a1 1 0 0 0 1.41-1.41z"/>
+                    </svg>
+                    AI智能配置
+                </button>
+
+                <div class="ai-settings">
+                    <div class="input-group">
+                        <label class="input-group__label">项目类型</label>
+                        <select class="input-field">
+                            <option>短视频制作</option>
+                            <option>电影长片</option>
+                            <option>广告宣传</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-group__label">目标平台</label>
+                        <select class="input-field">
+                            <option>影院放映</option>
+                            <option>网络流媒体</option>
+                            <option>电视广播</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

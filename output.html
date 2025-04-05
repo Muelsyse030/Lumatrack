@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵轨-视频导出</title>
+    <style>
+    :root {
+        --primary: #2680eb;
+        --secondary: #8c9db5;
+        --bg-light: #f5f6fa;
+        --border: #e4e7f0;
+        --radius: 8px;
+        --shadow: 0 4px 16px rgba(0,0,0,0.1);
+        --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+        margin: 0;
+        background: var(--bg-light);
+        font-family: system-ui;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow: auto;
+    }
+
+    .export-container {
+        width: 100%;
+        max-width: 900px;
+        max-height: 90vh;
+        overflow-y: auto;
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 24px;
+    }
+
+    .export-presets {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .preset-item {
+        padding: 16px;
+        border: 2px solid var(--border);
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .preset-item:hover {
+        border-color: var(--primary);
+        box-shadow: 0 2px 8px rgba(38, 128, 235, 0.1);
+    }
+
+    .preset-item--active {
+        border-color: var(--primary);
+        background: rgba(38, 128, 235, 0.05);
+    }
+
+    .export-params {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 24px;
+        margin: 20px 0;
+    }
+
+    .param-group {
+        margin-bottom: 16px;
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+    }
+
+    .param-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .param-label {
+        min-width: 120px;
+        color: var(--secondary);
+    }
+
+    .param-control {
+        height: 36px;
+        padding: 0 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 14px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .param-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(38, 128, 235, 0.1);
+    }
+
+    .path-container {
+        display: flex;
+        gap: 8px;
+        flex: 1;
+        min-width: 0; /* 防止flex子元素溢出 */
+    }
+
+    .path-input {
+        flex: 1;
+        min-width: 0; /* 允许input收缩 */
+        height: 36px;
+        padding: 0 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    .browse-btn {
+        flex-shrink: 0; /* 防止按钮被压缩 */
+        padding: 0 16px;
+        height: 36px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+    }
+
+    .browse-btn:hover {
+        background: #1976d2;
+    }
+
+    .output-path {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .browse-button {
+        height: 36px;
+        padding: 0 16px;
+        white-space: nowrap;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .browse-button:hover {
+        background: rgba(33, 150, 243, 0.9);
+    }
+
+    .export-actions {
+        margin-top: 24px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    .export-button {
+        padding: 12px 24px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .export-button:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+
+    .advanced-toggle {
+        color: var(--primary);
+        cursor: pointer;
+        user-select: none;
+    }
+
+    @media (max-width: 768px) {
+        .export-params {
+            grid-template-columns: 1fr;
+        }
+        
+        .export-presets {
+            grid-template-columns: 1fr;
+        }
+        
+        .param-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .param-label {
+            width: 100%;
+        }
+        
+        .param-control {
+            width: 100%;
+        }
+    }
+    
+    .export-container::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .export-container::-webkit-scrollbar-track {
+        background: var(--bg-light);
+        border-radius: 4px;
+    }
+    
+    .export-container::-webkit-scrollbar-thumb {
+        background: var(--secondary);
+        border-radius: 4px;
+    }
+    </style>
+</head>
+<body>
+    <div class="export-container">
+        <h1>导出设置</h1>
+        
+        <div class="export-presets">
+            <div class="preset-item preset-item--active">
+                <h3>高清 1080P</h3>
+                <p>H.264 / 25Mbps / MP4</p>
+            </div>
+            <div class="preset-item">
+                <h3>4K 超清</h3>
+                <p>H.265 / 50Mbps / MP4</p>
+            </div>
+            <div class="preset-item">
+                <h3>社交媒体</h3>
+                <p>H.264 / 8Mbps / MP4</p>
+            </div>
+        </div>
+
+        <div class="export-params">
+            <div>
+                <div class="param-group">
+                    <h3>视频设置</h3>
+                    <div class="param-row">
+                        <span class="param-label">格式</span>
+                        <select class="param-control">
+                            <option>MP4</option>
+                            <option>MOV</option>
+                            <option>AVI</option>
+                        </select>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-label">分辨率</span>
+                        <input type="text" class="param-control" value="1920x1080">
+                    </div>
+                    <div class="param-row">
+                        <span class="param-label">帧率</span>
+                        <select class="param-control">
+                            <option>24</option>
+                            <option>25</option>
+                            <option>30</option>
+                            <option>60</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="advanced-toggle">显示高级选项 ▼</div>
+            </div>
+
+            <div>
+                <div class="param-group">
+                    <h3>输出设置</h3>
+                    <div class="param-row">
+                        <span class="param-label">保存路径</span>
+                        <div class="path-container">
+                            <input type="text" class="path-input" value="/Documents">
+                            <button class="browse-btn">浏览</button>
+                        </div>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-label">文件大小</span>
+                        <span>≈ 1.2 GB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="export-actions">
+            <button class="export-button">取消</button>
+            <button class="export-button">开始导出</button>
+        </div>
+    </div>
+</body>
+</html>

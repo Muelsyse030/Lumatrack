@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <link rel="stylesheet" href="css/projectmainpage.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目管理系统 - 灵轨</title>
+    
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">灵轨</div>
+        <input type="text" class="search-box" placeholder="搜索项目...">
+        <div class="window-controls">
+            <button class="win-btn minimize">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                    <rect width="10" height="1" x="1" y="6"/>
+                </svg>
+            </button>
+            <button class="win-btn maximize">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                    <path class="maximize-svg" d="M1 1v10h10V1H1zm9 9H2V2h8v8z"/>
+                </svg>
+            </button>
+            <button class="win-btn close">
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                    <path d="M11 1L1 11m10 0L1 1" stroke="currentColor" fill="none"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+    
+    <script>
+    // 窗口控制功能
+    document.querySelector('.minimize').addEventListener('click', () => {
+    window.electronAPI.minimize()  // 
+})
+
+document.querySelector('.maximize').addEventListener('click', () => {
+    window.electronAPI.maximize()  // 
+})
+
+document.querySelector('.close').addEventListener('click', () => {
+    window.electronAPI.close()  // 
+})
+    
+    // 窗口状态同步
+    window.electronAPI.onMaximizeState((_, isMaximized) => {
+        const svg = document.querySelector('.maximize-svg')
+        svg.setAttribute('d', isMaximized ? 
+            'M2 2h8v8H2V2zm1 1v6h6V3H3z' : 
+            'M1 1v10h10V1H1zm9 9H2V2h8v8z'
+        )
+    })
+    </script>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="createProjectBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    新建项目
+                </button>
+                <script>
+                document.getElementById('createProjectBtn').addEventListener('click', function() {
+                    window.location.href = 'newproject.html';
+                });
+                </script>
+                <button class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/>
+                    </svg>
+                    打开项目
+                </button>
+            
+            </div>
+        </aside>
+
+        <main class="project-list">
+            <div class="welcome-section">
+                <h1 class="welcome-title">欢迎使用灵轨</h1>
+                <p class="user-name">用户：设计师虾滑</p>
+            </div>
+
+            <table class="project-table">
+                <thead>
+                    <tr>
+                        <th>项目名称</th>
+                        <th>最近使用时间</th>
+                        <th>大小</th>
+                        <th>项目类型</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <tr>
+                        <td>婚礼视频剪辑</td>
+                        <td>2024-03-15 14:30</td>
+                        <td>2.4 GB</td>
+                        <td>视频项目</td>
+                    </tr>
+                    <!-- 更多项目行 -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>
